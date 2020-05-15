@@ -1,7 +1,8 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-/* Declare a buffer for user input of size 2048 */
-static char input[2048];
+#include <editline/readline.h>
+#include <editline/history.h>
 
 int main(int argc, char** argv) {
 
@@ -9,17 +10,16 @@ int main(int argc, char** argv) {
   puts("Lispy Version 0.0.0.0.1");
   puts("Press Ctrl+c to Exit\n");
 
-  /* In a never ending loop */
   while (1) {
 
     /* Output our prompt */
-    fputs("lispy> ", stdout);
+    char* input = readline("lispy> ");
+    add_history(input);
 
-    /* Read a line of user input of maximum size 2048 */
-    fgets(input, 2048, stdin);
+    printf("No you're a %s\n", input);
 
-    /* Echo input back to user */
-    printf("No you're a %s", input);
+    // Memory management
+    free(input);
   }
 
   return 0;
